@@ -1,4 +1,6 @@
+import java.io.InputStream;
 import java.net.URI;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -28,23 +30,38 @@ public class App {
 
 		//exibir e manipular os dados
 		
+		var fabrica = new FabricaDeFigurinhas();
+		
 		for(Map<String, String> filme: listaDeFilmes) {
+			
+			
+			String urlImagem = filme.get("image");
+			String tituloFilme = filme.get("fullTitle");
+			
+			String nomeDoArquivo = tituloFilme + ".png";
+			
+			
+			
 			System.out.print("Rank: ");
 			System.out.println(filme.get("rank"));
 			
-			System.out.print(filme.get("fullTitle"));
+			System.out.print(tituloFilme);
 			System.out.print(", Score: ");
 			System.out.println(filme.get("imDbRating"));
 			System.out.println("");
 			
-			System.out.println(filme.get("image"));
-			System.out.println("");
+			
+			
+			InputStream inputStream = new URL(urlImagem).openStream();
+			
+			
+			fabrica.cria(inputStream, nomeDoArquivo);
 			
 			System.out.print("Elenco: ");
 			System.out.println(filme.get("crew"));
 			System.out.println("");
 			
-		}//image
+		}//image 
 		
 		
 		
